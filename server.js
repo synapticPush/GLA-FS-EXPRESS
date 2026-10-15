@@ -6,6 +6,9 @@ const express = require("express");
 const connectDB = require("./config/db");
 
 // Alag files mein likhe routes aur middleware ko import kar rahe hain.
+
+const cors = require("cors");
+
 const authRoutes = require("./routes/auth.routes");
 const taskRoutes = require("./routes/task.routes");
 const notFound = require("./middleware/notFound");
@@ -28,6 +31,11 @@ app.get("/", (req, res) => {
 
 // Router ke andar /register path hai, isliye yahan /api/auth prefix lagane par
 // final URL POST /api/auth/register ban jaata hai.
+
+app.use(cors({
+  origin: "http://localhost:5173", // React
+})); // CORS middleware ko routes ke upar lagaya hai taaki sabhi routes mein CORS kaam kare.
+
 app.use("/api/auth", authRoutes);
 
 // Isi tarah tasks router ke andar ke paths /api/tasks se shuru honge.
